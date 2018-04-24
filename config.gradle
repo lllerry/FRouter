@@ -1,0 +1,23 @@
+ext {
+    //true 集成模式
+    //false 组件模式
+    isModule = true
+    android = [
+            compileSdkVersion: 26,
+            minSdkVersion    : 15,
+            targetSdkVersion : 26,
+            versionCode      : 1,
+            versionName      : "1.0"
+    ]
+    appId = ["app"  : "com.lerry.frouter",
+             "test" : "com.lerry.test",
+             "test2": "com.lerry.test2"
+    ]
+
+    supportLibrary = "26.1.0"
+
+//    全局统一配置依赖库
+    dependencies = [
+            "appcompat-v7": "com.android.support:appcompat-v7:${supportLibrary}",
+    ]
+}

@@ -1,13 +1,19 @@
-apply plugin: 'com.android.application'
-
+if (rootProject.ext.isModule.toBoolean()) {
+    apply plugin: 'com.android.library'
+} else {
+    apply plugin: 'com.android.application'
+}
+def cfg = rootProject.ext.android
+def appId = rootProject.ext.appId
 android {
-    compileSdkVersion 26
+    compileSdkVersion cfg.compileSdkVersion
+
     defaultConfig {
-        applicationId "com.lerry.frouter"
-        minSdkVersion 15
-        targetSdkVersion 26
-        versionCode 1
-        versionName "1.0"
+        minSdkVersion cfg.minSdkVersion
+        targetSdkVersion cfg.targetSdkVersion
+        versionCode cfg.versionCode
+        versionName cfg.versionName
+
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
         javaCompileOptions {
@@ -15,29 +21,44 @@ android {
                 arguments = [moduleName: project.getName()]
             }
         }
+        //是组件模式下配置appid
+        if (!isModule) {
+            applicationId appId["test"]
+        }
+
+        sourceSets {
+            main {
+                //在组件模式下使用不同的资源文件
+                if (!isModule) {
+                    manifest.srcFile 'src/main/module/AndroidManifest.xml'
+                    java.scrDir 'src/main/module/java'
+                } else {
+                    manifest.srcFile 'src/main/AndroidManifest.xml'
+                }
+            }
+        }
     }
+
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
 }
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
+
     implementation 'com.android.support:appcompat-v7:26.1.0'
     implementation 'com.android.support.constraint:constraint-layout:1.1.0'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
 
+
     annotationProcessor project(':router-compiler')
 
     api project(':route-core')
-
-    if (isModule) {
-        implementation project(':test')
-        implementation project(':test2')
-    }
 }
