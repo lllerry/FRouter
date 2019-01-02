@@ -5,10 +5,11 @@ package com.lerry.route_core.template;
  * -----------
  * Blog: imlerry.com
  *
- * @author lerry on 2018/4/18.
- *         用于组件间通信
+ * @author lerry on 2018/4/26.
  */
 
-public interface IService {
+public interface ITestService  extends IService{
+
+    String test();
 
 }

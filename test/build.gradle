@@ -30,8 +30,8 @@ android {
             main {
                 //在组件模式下使用不同的资源文件
                 if (!isModule) {
-                    manifest.srcFile 'src/main/module/AndroidManifest.xml'
-                    java.scrDir 'src/main/module/java'
+                    manifest.srcFile 'src/module/AndroidManifest.xml'
+                    java.srcDir 'src/module/java'
                 } else {
                     manifest.srcFile 'src/main/AndroidManifest.xml'
                 }

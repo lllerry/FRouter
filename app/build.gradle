@@ -16,9 +16,25 @@ android {
             }
         }
     }
+    signingConfigs {
+        release {
+            storeFile file("../key.keysotre")
+            storePassword "123456"
+            keyAlias "1"
+            keyPassword "123456"
+        }
+//        debug {
+//            storeFile file("../key.keysotre")
+//            storePassword "123456"
+//            keyAlias "1"
+//            keyPassword "123456"
+//        }
+    }
+
     buildTypes {
         release {
             minifyEnabled false
+            signingConfig signingConfigs.release
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }

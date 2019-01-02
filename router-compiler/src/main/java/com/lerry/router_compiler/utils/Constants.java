@@ -12,6 +12,7 @@ public final class Constants {
 
     public static final String ARGUMENTS_NAME = "moduleName";
     public static final String ANN_TYPE_ROUTE = "com.lerry.router_annotation.Route";
+    public static final String ANN_TYPE_EXTRA = "com.lerry.router_annotation.Extra";
 
     public static final String ACTIVITY = "android.app.Activity";
     public static final String ISERVICE = "com.lerry.route_core.template.IService";

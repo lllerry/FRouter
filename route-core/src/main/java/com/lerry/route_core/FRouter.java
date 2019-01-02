@@ -14,6 +14,7 @@ import com.lerry.route_core.callback.NavigationCallback;
 import com.lerry.route_core.exception.NoRouteFoundException;
 import com.lerry.route_core.template.IRouteGroup;
 import com.lerry.route_core.template.IRouteRoot;
+import com.lerry.route_core.template.IService;
 import com.lerry.route_core.utils.ClassUtils;
 import com.lerry.router_annotation.model.RouteMeta;
 
@@ -190,7 +191,7 @@ public class FRouter {
                 });
                 break;
             case ISERVICE:
-                break;
+                return postcard.getService();
             default:
                 break;
         }
@@ -228,7 +229,27 @@ public class FRouter {
             postcard.setDestination(routeMeta.getDestination());
             postcard.setType(routeMeta.getType());
             switch (routeMeta.getType()) {
-
+                case ISERVICE:
+                    Class<?> destination = routeMeta.getDestination();
+                    IService iService = Warehouse.services.get(destination);
+                    if (iService == null) {
+                        try {
+                            iService = (IService) destination.getConstructor().newInstance();
+                            Warehouse.services.put(destination, iService);
+                        } catch (InstantiationException e) {
+                            e.printStackTrace();
+                        } catch (IllegalAccessException e) {
+                            e.printStackTrace();
+                        } catch (InvocationTargetException e) {
+                            e.printStackTrace();
+                        } catch (NoSuchMethodException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                    postcard.setService(iService);
+                    break;
+                default:
+                    break;
             }
         }
     }

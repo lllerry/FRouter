@@ -149,17 +149,17 @@ public class RouteProcessor extends AbstractProcessor {
 
             //记录分组信息
             categories(routeMeta);
-
-            //创建生成需要继承的接口
-            TypeElement typeElementIRouteGroup = mElementUtils.getTypeElement(Constants.IROUTE_GROUP);
-            TypeElement typeElementIRouteRoot = mElementUtils.getTypeElement(Constants.IROUTE_ROOT);
-
-            //生成组类
-            generateGroup(typeElementIRouteGroup);
-            //生成root类,作用 记录<分组,对应的group类>
-            generateRoot(typeElementIRouteRoot, typeElementIRouteGroup);
-
         }
+
+        //创建生成需要继承的接口
+        TypeElement typeElementIRouteGroup = mElementUtils.getTypeElement(Constants.IROUTE_GROUP);
+        TypeElement typeElementIRouteRoot = mElementUtils.getTypeElement(Constants.IROUTE_ROOT);
+
+        //生成组类
+        generateGroup(typeElementIRouteGroup);
+        //生成root类,作用 记录<分组,对应的group类>
+        generateRoot(typeElementIRouteRoot, typeElementIRouteGroup);
+
     }
 
     private void generateRoot(TypeElement elementIRouteRoot, TypeElement typeElementIRouteGroup) throws IOException {
